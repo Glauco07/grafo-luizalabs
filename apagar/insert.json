@@ -1,0 +1,30 @@
+{
+	"set": [
+		{
+			"name": "Carlos",
+			"knows": [
+				{
+					"name": "Ana",
+					"knows": [
+						{
+							"name": "Maria",
+							"knows": [
+								{
+									"name": "Vinicius"
+								}
+							]
+						},
+						{
+							"name": "João",
+							"knows": [
+								{
+									"name": "Luiza"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
