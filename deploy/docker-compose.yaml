@@ -2,8 +2,25 @@ version: "3.7"
 
 services:
     flask:
+        container_name: flask-container
         build:
             context: ../
             dockerfile: deploy/Dockerfile
         ports:
             - 5000:5000
+        depends_on:
+            - db
+        links:
+            - db
+
+    db:
+        image: dgraph/standalone:v20.03.0
+        container_name: dgraph-container
+        volumes:
+            - /mnt/dgraph:/dgraph
+        ports:
+            - 6080:6080
+            - 8080:8080
+            - 9080:9080
+            - 8000:8000
+        restart: on-failure
