@@ -9,7 +9,7 @@ from views import create_people_views
 
 app = Flask(__name__)
 
-db_stub = pydgraph.DgraphClientStub('db:9080')
+db_stub = pydgraph.DgraphClientStub('localhost:9080') # trocar para db:9080
 db_connection = pydgraph.DgraphClient(db_stub)
 
 repository = create_people_repository(db_connection)

@@ -39,4 +39,38 @@ class PeopleRepository(object):
         """
 
         res = self._execute(query, variables={'$a': name})
-        return json.loads(res.json)['people'][0]
+        friends = json.loads(res.json)['people']
+        
+        return friends[0] if len(friends) > 0 else None
+
+    def get_uids(self, names):
+
+        uids = []
+
+        for name in names:
+
+            query = """
+                query people($a: string) {
+                    people(func: eq(name, $a))
+                    {
+                        uid
+                    }
+                }
+            """
+
+            res = self._execute(query, variables={'$a': name})
+            uid = json.loads(res.json)['people']
+
+            if len(uid) > 0:
+                uids.append(uid[0])
+
+        return uids if len(uids) > 0 else None
+
+    def add_people(self, key, uids):
+        
+        mutation = {
+            'name': key,
+            'knows': uids
+        }
+
+        self.client.txn().mutate(set_obj=mutation) # ver se inserir está funcionando. Lembrar de trocar localhost para db

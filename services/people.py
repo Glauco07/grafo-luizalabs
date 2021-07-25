@@ -11,6 +11,9 @@ class PeopleService(object):
     def get_friends(self, name):
 
         raw_friends = self.repository.get_friends(name)
+
+        if raw_friends is None:
+            return None
     
         people = [
             *raw_friends.get('knows', []),
@@ -27,9 +30,23 @@ class PeopleService(object):
 
         for person in people:
             friends = self.repository.get_friends(person)
+            if friends is None:
+                return None
 
             for friend in friends:
                 if friend not in people and friend != name:
                     unkown_people.append(friend)
 
         return unkown_people
+
+    def add_people(self, payload):
+
+        people = self.get_all()
+
+        for key, values in payload.items():
+            for value in values:
+                if value not in people:
+                    return None
+            uids = self.repository.get_uids(values)
+            self.repository.add_people(key, uids)
+            return True
