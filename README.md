@@ -34,12 +34,12 @@ Execução
 ========
 Na pasta raiz do projeto, execute o comando
 ```bash
-docker-compose -f .\deploy\docker-compose.yaml up -d
+docker-compose -f ./deploy/docker-compose.yaml up -d
 ```
 
 Para parar de rodar o container, execute o comando
 ```bash
-docker-compose -f .\deploy\docker-compose.yaml down
+docker-compose -f ./deploy/docker-compose.yaml down
 ```
 
 Rotas
