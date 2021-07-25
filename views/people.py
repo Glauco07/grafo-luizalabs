@@ -29,18 +29,26 @@ class PeopleViews(object):
                 return json.dumps({}), 400
 
             friends = self.service.get_friends(name)
-            return (json.dumps(friends), 200) if friends is not None else (json.dumps({}), 400)
+
+            return json.dumps(friends), 200
+
+        @self.router.route('/people/<name>/level2', methods=['GET'])
+        def get_second_level(name):
+            unknown_people = self.service.get_unknown_people(name)
+
+            return json.dumps(unknown_people), 200
 
         @self.router.route('/people', methods=['POST'])
-        def add_people(): # recebe um dict cuja key é o nome da pessoa a ser inserida, e o value é uma lista de nomes que essa pessoa conhece
+        def add_people():
+            # recebe um dict cuja key é o nome da pessoa a ser inserida, e o value é uma lista de nomes que essa pessoa conhece
 
             payload = request.json
             if payload is None:
-                message = json.dumps({"message":"The body of the request is a not valid JSON."})
+                message = json.dumps({'message': 'The body of the request is a not valid JSON.'})
                 return message, 400
 
             result = self.service.add_people(payload) 
             if result is None:
-                return json.dumps({}), 400
+                return json.dumps({'message': 'Could not insert one or more people.'}), 400
 
-            return payload, 201
+            return json.dumps({'message': 'All people inserted.'}), 201

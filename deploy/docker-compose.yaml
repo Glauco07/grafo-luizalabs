@@ -19,7 +19,6 @@ services:
         volumes:
             - /mnt/dgraph:/dgraph
         ports:
-            - 6080:6080
             - 8080:8080
             - 9080:9080
             - 8000:8000

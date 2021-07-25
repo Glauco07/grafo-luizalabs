@@ -40,8 +40,8 @@ class PeopleRepository(object):
 
         res = self._execute(query, variables={'$a': name})
         friends = json.loads(res.json)['people']
-        
-        return friends[0] if len(friends) > 0 else None
+
+        return friends[0] if len(friends) > 0 else friends
 
     def get_uids(self, names):
 
@@ -66,11 +66,21 @@ class PeopleRepository(object):
 
         return uids if len(uids) > 0 else None
 
-    def add_people(self, key, uids):
+    def add_person(self, key, uids):
         
         mutation = {
             'name': key,
             'knows': uids
         }
 
-        self.client.txn().mutate(set_obj=mutation) # ver se inserir está funcionando. Lembrar de trocar localhost para db
+        txn = self.client.txn()
+
+        try:
+            txn.mutate(set_obj=mutation)
+            txn.commit()
+        except pydgraph.AbortedError:
+            return None
+        finally:
+            txn.discard()
+
+        return True
