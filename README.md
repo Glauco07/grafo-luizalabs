@@ -26,7 +26,9 @@ Sumário
   
 Requisitos
 ==========
-Para rodar o serviço, é apenas necessário possuir o `docker` instalado.
+Para rodar o serviço, é necessário executar o comando `docker-compose`.<br>
+No Windows, é apenas necessário baixar o docker-desktop, que já inclui esse comando.<br>
+No Linux, porém, caso ainda não tenha instalado, será necessário instalar o [docker engine](https://docs.docker.com/engine/install/#server) e o [docker compose](https://docs.docker.com/compose/install/).
 
 Execução
 ========
