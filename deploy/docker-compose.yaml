@@ -5,7 +5,7 @@ services:
         container_name: flask-container
         build:
             context: ../
-            dockerfile: deploy/Dockerfile
+            dockerfile: deploy/service.Dockerfile
         ports:
             - 5000:5000
         depends_on:
@@ -14,8 +14,10 @@ services:
             - db
 
     db:
-        image: dgraph/standalone:v20.03.0
         container_name: dgraph-container
+        build:
+            context: ../
+            dockerfile: deploy/db.Dockerfile
         volumes:
             - /mnt/dgraph:/dgraph
         ports:

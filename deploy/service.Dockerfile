@@ -10,9 +10,4 @@ COPY ./ /usr/src/app/
 
 EXPOSE 5000
 
-EXPOSE 8080
-EXPOSE 9080
-EXPOSE 8000
-
-ENTRYPOINT ["python"]
-CMD ["run.py"]
+ENTRYPOINT ["python", "run.py"]

@@ -201,15 +201,15 @@ Clique em `console`, e insira a seguinte query:
 
 ```javascript
 {
-	people(func: has(name)) {
-		name
-    knows {
-			name
+    people(func: has(name)) {
+        name
+        knows {
+            name
+        }
+        ~knows {
+            name
+        }
     }
-    ~knows {
-			name
-  	}
-	}
 }
 ```
 
