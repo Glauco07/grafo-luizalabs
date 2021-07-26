@@ -10,4 +10,5 @@ COPY ./ /usr/src/app/
 
 EXPOSE 5000
 
-ENTRYPOINT ["python", "run.py"]
+ENTRYPOINT ["python"]
+CMD ["run.py"]

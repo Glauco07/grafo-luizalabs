@@ -28,7 +28,8 @@ Requisitos
 ==========
 Para rodar o serviço, é necessário executar o comando `docker-compose`.<br>
 No Windows, é apenas necessário baixar o docker-desktop, que já inclui esse comando.<br>
-No Linux, porém, caso ainda não tenha instalado, será necessário instalar o [docker engine](https://docs.docker.com/engine/install/#server) e o [docker compose](https://docs.docker.com/compose/install/).
+No Linux, porém, caso ainda não tenha instalado, será necessário instalar o [docker engine](https://docs.docker.com/engine/install/#server) e o [docker compose](https://docs.docker.com/compose/install/).<br>
+O Docker daemon precisa estar sendo executado para que o docker-compose consiga rodar. Para isso, caso ainda não esteja em execução, digite no terminal `sudo dockerd`.
 
 Execução
 ========
@@ -37,6 +38,19 @@ Na pasta raiz do projeto, execute o comando
 docker-compose -f ./deploy/docker-compose.yaml up -d
 ```
 
+Para que o banco seja inicializado com base na ilustração fornecida na especificação, preparei um script em python que se encarrega dessas inserções.<br>
+Para executálo, é necessário possuir a biblioteca `requests` instalada.
+
+Caso não a possua
+```bash
+pip3 install requirements
+```
+
+E para executar o script
+Caso não a possua:
+```bash
+python3 ./populate-db.py
+```
 Para parar de rodar o container, execute o comando
 ```bash
 docker-compose -f ./deploy/docker-compose.yaml down
@@ -199,7 +213,7 @@ Então, dessa forma, utilizo `knows` e `~knows` para representar **conhece** e *
 Acessando [localhost:8000](http://localhost:8000), é possível visualizar o grafo com as pessoas e as relações entre elas.<br>
 Clique em `console`, e insira a seguinte query:
 
-```javascript
+```
 {
     people(func: has(name)) {
         name
